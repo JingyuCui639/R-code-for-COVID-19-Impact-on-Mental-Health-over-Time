@@ -1,0 +1,66 @@
+library(glmnet)
+
+# factorization
+factorization<-function(data){
+  
+  #fatorization
+  data$MS<-factor(data$MS)
+  data$INCOME<-factor(data$INCOME)
+  data$WRKLOSS.c<-factor(data$WRKLOSS.c)
+  data$ANYWORK<-factor(data$ANYWORK)
+  data$KINDWORK<-factor(data$KINDWORK)
+  data$EMPPAY<-factor(data$EMPPAY)
+  data$foodcon.change<-factor(data$foodcon.change )
+  data$freefood<-factor(data$freefood)
+  data$FOODCONF<-factor(data$FOODCONF)
+  data$HLTHSTATUS<-factor(data$HLTHSTATUS)
+  data$HEALINS<-factor(data$HEALINS)
+  data$MED.DELAY.NOTGET<-factor(data$MED.DELAY.NOTGET)
+  data$MORT.PROB<-factor(data$MORT.PROB)
+  data$SchoolEnroll<-factor(data$SchoolEnroll)
+  data$Y<-factor(data$Y)
+  
+  return(as.data.frame(data))
+  
+}
+
+week1.factor = factorization(week1.input)
+
+x=model.matrix(Y~.,week1.input)[,-1]# -1 remove intercept
+y=week1.input$Y
+
+
+grid=10^seq(10,-2,length=100) # grid search for best lambda
+lasso.mod=glmnet(x,y,family = "binomial",alpha=1,lambda=grid)
+plot(lasso.mod)
+set.seed(1)
+cv.out=cv.glmnet(x,y,alpha=1,family = "binomial")
+plot(cv.out) 
+(bestlam=cv.out$lambda.min) # choose the lambda with the least mse
+
+
+out=glmnet(x,y,alpha=1,lambda=grid, family = "binomial")
+
+lasso.coef=predict(out,type="coefficients",s=bestlam,family = "binomial")
+lasso.coef # the full coefficient list wrt to best lambda
+
+
+
+# Ridge Regression
+
+
+ridge.mod=glmnet(x,y,alpha=0,lambda=grid,family = 'binomial')
+dim(coef(ridge.mod))
+
+
+set.seed(1)
+
+cv.out=cv.glmnet(x,y,alpha=0,family = 'binomial')
+plot(cv.out)
+(bestlam=cv.out$lambda.min) # best lambda corresponde to smallest mse
+
+
+out=glmnet(x,y,alpha=0,family = 'binomial')
+ridge.coef = predict(out,type="coefficients",s=bestlam,family = 'binomial')
+ridge.coef # coefficients for best lambda in ridge regression
+
