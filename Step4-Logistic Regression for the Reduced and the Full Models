@@ -1,32 +1,8 @@
+# This code will read in all the pre-processed data for 12 weeks, 
+# then fit logistic model for the reduced model and the full model for each complete data for each week.
+# Then, the fitted results of reduced model and the full model for each complete data for 12 weeks are stored in .csv file.
 
 library(glmnet)
-# fn for all: factorization
-factorization<-function(data){
-  #factorization
-  data$MS<-factor(data$MS)
-  data$INCOME<-factor(data$INCOME)
-  data$WRKLOSS.c<-factor(data$WRKLOSS.c)
-  # ANYWORK->anywork
-  data$anywork<-factor(data$anywork)
-  data$KINDWORK<-factor(data$KINDWORK)
-  data$EMPPAY<-factor(data$EMPPAY)
-  data$foodcon.change<-factor(data$foodcon.change )
-  data$freefood<-factor(data$freefood)
-  data$FOODCONF<-factor(data$FOODCONF)
-  data$HLTHSTATUS<-factor(data$HLTHSTATUS)
-  data$HEALINS<-factor(data$HEALINS)
-  data$MED.DELAY.NOTGET<-factor(data$MED.DELAY.NOTGET)
-  data$MORT.PROB<-factor(data$MORT.PROB)
-  data$SchoolEnroll<-factor(data$SchoolEnroll)
-  data$Y<-factor(data$Y)
-  data$EEDUC<-factor(data$EEDUC)
-  data$EST_ST<-factor(data$EST_ST)
-  # Additional factors
-  data$MALE<-factor(data$MALE)
-  data$RHISPANIC<-factor(data$RHISPANIC)
-  data$RRACE<-factor(data$RRACE)
-  return(as.data.frame(data))
-}
 
 # read in name (the same)
 name_in = matrix(rep(0,12*5),ncol = 5)
