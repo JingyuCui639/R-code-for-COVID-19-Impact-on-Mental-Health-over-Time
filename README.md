@@ -1,9 +1,11 @@
 # R-code-for-COVID-19-Impact-on-Mental-Health-over-Time
 
-Descriptions software and packages
+Descriptions of software and important packages used in the study.
 
 All the computation in this study is conducted in R (version 3.6.1). 
-The Multivariate Imputation by Chained Equation (MICE) package is used in R to do the multiple imputation.
+The R package: Multivariate Imputation by Chained Equation (MICE) is used in R to do the multiple imputation.
+The R package: Lasso and Elastic-Net Regularized Generalized Linear Models (glmnet) is used to fit Lasso model.
+The function glm() is used to fit the logistic regression model on the data.
 
 The proceures are listed as follows:
 
