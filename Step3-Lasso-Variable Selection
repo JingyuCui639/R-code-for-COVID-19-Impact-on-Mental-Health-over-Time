@@ -55,7 +55,7 @@ cv.out=cv.glmnet(x,y,alpha=1,family = "binomial")
 
 plot(cv.out) 
 
-# Choose the lambda such that the model is the most parsimonious 
+# IN the study, we choose the lambda such that the model is the most parsimonious 
 # and within one standard error of the minimum cross-validation misclassification rate. 
 (bestlam=cv.out$lambda.1se) 
 
@@ -64,6 +64,8 @@ out=glmnet(x,y,alpha=1,lambda=grid, family = "binomial")
 lasso.coef=predict(out,type="coefficients",s=bestlam,family = "binomial")
 
 lasso.coef # the full coefficient list wrt to best lambda
+
+# Next, the full model and the reduced model are selected based on the Lasso results for each complete imputed data for each week.
 
 
 ####################
