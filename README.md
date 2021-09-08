@@ -20,3 +20,5 @@ This is done by using R package: Lasso and Elastic-Net Regularized Generalized L
 4. Implementing logistic regression on each imputed data set.
 Once the explanatory variables are decided for the reduced model and the full model, the logistic regression is conducted to fit the selected reduced model and the full model. 
 This is done by calling function glm() with arguments family='binomial'.
+
+5. Select the factors in the final model based on the results in the reduced model and the full model. Then, uing logistic method fit on the final model.
