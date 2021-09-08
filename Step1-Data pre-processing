@@ -1,3 +1,4 @@
+#### Step 1 ####
 library(dplyr)
 #read the data for 12 weeks
 week1.data<-read.csv("pulse2020_puf_01.csv")
