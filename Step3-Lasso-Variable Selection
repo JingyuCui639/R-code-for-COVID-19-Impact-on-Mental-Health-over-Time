@@ -1,9 +1,9 @@
 library(glmnet)
 
-# factorization
+# The function below converts the categorical variables into factors.
+
 factorization<-function(data){
   
-  #fatorization
   data$MS<-factor(data$MS)
   data$INCOME<-factor(data$INCOME)
   data$WRKLOSS.c<-factor(data$WRKLOSS.c)
@@ -24,43 +24,74 @@ factorization<-function(data){
   
 }
 
+
+#Read in each complete imputed data (.csv file).
+week1.input = read.csv('completedata_week1_1.csv')
+
+#Converting categorical variables into factors
 week1.factor = factorization(week1.input)
 
-x=model.matrix(Y~.,week1.input)[,-1]# -1 remove intercept
-y=week1.input$Y
+#Extract design matrix in the regression model;
+#-1 remove intercept
+x=model.matrix(Y~.,week1.factor)[,-1] 
 
+#Extract response vector Y
+y=week1.factor$Y
 
-grid=10^seq(10,-2,length=100) # grid search for best lambda
-lasso.mod=glmnet(x,y,family = "binomial",alpha=1,lambda=grid)
+#########
+# Lasso #
+#########
+
+# Grid search for best tuning parameter lambda
+grid=10^seq(10,-2,length=100) 
+
+lasso.mod=glmnet(x,y,family = "binomial",alpha=1 ,lambda=grid) #alpha=1 indicates Lasso method
+
 plot(lasso.mod)
-set.seed(1)
-cv.out=cv.glmnet(x,y,alpha=1,family = "binomial")
-plot(cv.out) 
-(bestlam=cv.out$lambda.min) # choose the lambda with the least mse
 
+set.seed(1)
+
+cv.out=cv.glmnet(x,y,alpha=1,family = "binomial")
+
+plot(cv.out) 
+
+# Choose the lambda such that the model is the most parsimonious 
+# and within one standard error of the minimum cross-validation misclassification rate. 
+(bestlam=cv.out$lambda.1se) 
 
 out=glmnet(x,y,alpha=1,lambda=grid, family = "binomial")
 
 lasso.coef=predict(out,type="coefficients",s=bestlam,family = "binomial")
+
 lasso.coef # the full coefficient list wrt to best lambda
 
 
-
-# Ridge Regression
-
+####################
+# Ridge Regression #
+####################
+#The ridge method is not used in this project, but also write here for reference.
+#It basically has the same code with Lasso, but only setting "alpha=0", which indicates ridge method.
 
 ridge.mod=glmnet(x,y,alpha=0,lambda=grid,family = 'binomial')
-dim(coef(ridge.mod))
 
+dim(coef(ridge.mod))
 
 set.seed(1)
 
 cv.out=cv.glmnet(x,y,alpha=0,family = 'binomial')
-plot(cv.out)
-(bestlam=cv.out$lambda.min) # best lambda corresponde to smallest mse
 
+plot(cv.out)
+
+# Here is an example that setting best lambda corresponde to smallest mse, which is different with "lambda.1se" shown in the Lasso method. 
+# The difference between "lambda.min" and "lambda.1se" is:
+# *"lambda.min" will select the model (variables) such that the prediction error is the smallest. Thus, the number of variables is larger and it could be overfitting.
+# *"lambda.1se" will select less variables and the model MSE is within 1 standar error of the smallest MSE among all the possible models. This way can avoid overfiting.
+# In practice, you need to choose the proper one based on what you need.
+(bestlam=cv.out$lambda.min) 
 
 out=glmnet(x,y,alpha=0,family = 'binomial')
+
 ridge.coef = predict(out,type="coefficients",s=bestlam,family = 'binomial')
+
 ridge.coef # coefficients for best lambda in ridge regression
 
