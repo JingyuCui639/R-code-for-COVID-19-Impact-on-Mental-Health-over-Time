@@ -23,4 +23,8 @@ Please refer to the code in "Step3-Lasso-Variable Selection".
 4. Apply logistic regression on each imputed data set for each week to get the combined estimates and s.e. of the reduced model and the full model for each week. 
 This is done by calling function glm() with arguments family='binomial'. Please refer to the code in "Step4-Logistic Regression for the Reduced and the Full Models".
 
-5. Select the factors in the final model based on the results in the reduced model and the full model. Then, uing logistic method fit on the final model.
+5. Select the factors in the final model based on the results in the reduced model and the full model. 
+Then, fitting the logictic model with variables selected in the final model. 
+Next, calculate the estimates and s.e. for each week based on the results from 5 imputed data sets. 
+Lastly, the fitted combined results for 12 weeks are exported in the form of .csv files.
+Please refer to the code in "Step5-Logistic Regression for the Final Model".
