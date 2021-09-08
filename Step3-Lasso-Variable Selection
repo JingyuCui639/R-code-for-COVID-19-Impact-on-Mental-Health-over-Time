@@ -1,13 +1,15 @@
 library(glmnet)
 
 # The function below converts the categorical variables into factors.
+# The input data should be the pre-processed data in the form of .csv file.
 
 factorization<-function(data){
-  
+  #factorization
   data$MS<-factor(data$MS)
   data$INCOME<-factor(data$INCOME)
   data$WRKLOSS.c<-factor(data$WRKLOSS.c)
-  data$ANYWORK<-factor(data$ANYWORK)
+  # ANYWORK->anywork
+  data$anywork<-factor(data$anywork)
   data$KINDWORK<-factor(data$KINDWORK)
   data$EMPPAY<-factor(data$EMPPAY)
   data$foodcon.change<-factor(data$foodcon.change )
@@ -19,9 +21,13 @@ factorization<-function(data){
   data$MORT.PROB<-factor(data$MORT.PROB)
   data$SchoolEnroll<-factor(data$SchoolEnroll)
   data$Y<-factor(data$Y)
-  
+  data$EEDUC<-factor(data$EEDUC)
+  data$EST_ST<-factor(data$EST_ST)
+  # Additional factors
+  data$MALE<-factor(data$MALE)
+  data$RHISPANIC<-factor(data$RHISPANIC)
+  data$RRACE<-factor(data$RRACE)
   return(as.data.frame(data))
-  
 }
 
 
