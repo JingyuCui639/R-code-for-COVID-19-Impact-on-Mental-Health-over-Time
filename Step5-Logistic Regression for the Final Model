@@ -1,5 +1,8 @@
 library(glmnet)
-# fn for all: factorization
+
+# The function below converts the categorical variables into factors.
+# The input data should be the pre-processed data in the form of .csv file.
+
 factorization<-function(data){
   #factorization
   data$MS<-factor(data$MS)
@@ -28,8 +31,6 @@ factorization<-function(data){
 }
 
 
-
-################# Part III largest and smallest model among 12 weeks
 # read in name (the same)
 name_in = matrix(rep(0,12*5),ncol = 5)
 for (i in 1:12) {
@@ -119,18 +120,8 @@ logistic.out.2 = function(week,s_ind){
   return(o)
 }
 
-#  vs index  for both models
-#s_ind = c(2,3,7,9,11,12,19,20,21,22,23,26)
-#l_ind = c(1,4,5,6,7,8,10,12,13,14,15,16,17,18,19,20,21,24,25,26)
 
-# test for week 1 
-setwd("E:/me/Project_1/Ridge reg/Data1")
-week1.input = read.csv('stateComb_completedata_week1_1.csv')
-
-
-
-
-#####True model fiting##################################
+#####Final logistic model fiting#######################
 ind.true<-c(1,2,3,4,5,7,8,9,11,12,19,20,21,22,23,24,26)
 
 for (i in 1:12) {
