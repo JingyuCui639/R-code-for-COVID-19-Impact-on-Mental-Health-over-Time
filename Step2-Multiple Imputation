@@ -1,7 +1,7 @@
 #To implement multiple imputation by chained equations (MICE) method, we use R package "mice".
 library(mice)
 
-# defaultMethod:
+# Default methods for different types of variable:
 #  To do the imputation, different methods are used for different variable types:
 #  1) numeric data, 
 #  2) factor data with 2 levels, 
@@ -27,8 +27,8 @@ missing.var.names<-c("MS", "INCOME", "WRKLOSS.c", "anywork", "KINDWORK",
                      "Y")    
 
 
-#Imputing 12 weeks datasets by "mice" function. Here, each input data are the pre-processed data in step 1. 
-#i.e., "week1.data.new" is the pre-processed data for week1
+#Imputing 12 weeks datasets by "mice()" function. Here, each input data are the pre-processed data in step 1. 
+#i.e., "week1.data.new" is the pre-processed data for week 1.
 
 imputed.week1<-mice(week1.data.new,method = col.methods,blocks = missing.var.names,m=5,maxit = 10, seed = 51162)
 
