@@ -1,6 +1,6 @@
 # This code will read in all the pre-processed data for 12 weeks at one time, 
-# then fit logistic model for the reduced model and the full model for each complete data for each week.
-# Then, the estimates and corresponding standard error for each week are calculated based on the 5 imputed data sets in each week.
+# Then fit logistic reduced model and the full model on each complete data for each week.
+# Then, the estimates and corresponding standard error for each week are calculated based on the fitted results from 5 imputed data sets in each week.
 # Finally, the estimates and corresponding s.e. for each week are exported as .csv files.
 
 fitted results of reduced model and the full model for each complete data for 12 weeks are stored in .csv file.
