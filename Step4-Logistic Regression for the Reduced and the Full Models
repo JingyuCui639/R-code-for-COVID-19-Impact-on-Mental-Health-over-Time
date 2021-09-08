@@ -1,6 +1,9 @@
-# This code will read in all the pre-processed data for 12 weeks, 
+# This code will read in all the pre-processed data for 12 weeks at one time, 
 # then fit logistic model for the reduced model and the full model for each complete data for each week.
-# Then, the fitted results of reduced model and the full model for each complete data for 12 weeks are stored in .csv file.
+# Then, the estimates and corresponding standard error for each week are calculated based on the 5 imputed data sets in each week.
+# Finally, the estimates and corresponding s.e. for each week are exported as .csv files.
+
+fitted results of reduced model and the full model for each complete data for 12 weeks are stored in .csv file.
 
 library(glmnet)
 
@@ -46,6 +49,7 @@ logistic.single = function(data,ind1){
 }
 
 # combined logistic
+# s_ind: the index for the variables selected in the model
 logistic.out.2 = function(week,s_ind){
   data = read.in(week) # 5 data for week 
   o1 = logistic.single(data[[1]],s_ind) # coef and sd for data1(2 models)
@@ -93,7 +97,9 @@ logistic.out.2 = function(week,s_ind){
   return(o)
 }
 
-#  vs index for both models
+
+# Since the full model includes all the variables, we don't need to input variable index for the full model.
+# The variable index for the reduced model
 s_ind = c(2,3,7,9,11,12,19,20,21,22,23,26)
 
 # test for week 1 
