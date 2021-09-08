@@ -1,3 +1,9 @@
+# The final model is selected based on the results from the reduced model and the full model. 
+# Then, read in all the pre-processed data sets for 12 weeks at one time, 
+# Then fit the final logistic model on each complete data for each week. 
+# The estimates and corresponding standard error for each week are calculated based on the fitted results from 5 imputed data sets in each week.
+# Finally, the estimates and corresponding s.e. for each week are exported as .csv files.
+
 library(glmnet)
 
 # The function below converts the categorical variables into factors.
