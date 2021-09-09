@@ -27,7 +27,7 @@ variable_selection<-function(data){
   attach(data)
   Age<-2020-TBIRTH_YEAR #change the birth year to age
   
-  MALE<-ifelse(EGENDER==1,1,0) #
+  MALE<-ifelse(EGENDER==1,1,0) #1: Male, 0: Female
   
   RHISPANIC<-ifelse(RHISPANIC==2,1,0)
    
